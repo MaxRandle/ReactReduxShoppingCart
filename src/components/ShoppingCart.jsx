@@ -4,7 +4,7 @@ import { AppStateContext } from "../contexts/AppStateContext";
 import { CartContext } from "../contexts/CartContext";
 import CartItem from "./CartItem";
 
-const ShoppingCart = props => {
+const ShoppingCart = () => {
   const { appState, setAppState } = useContext(AppStateContext);
   const { cart } = useContext(CartContext);
   const total = cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
