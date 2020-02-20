@@ -1,9 +1,12 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 export const CartContext = createContext();
 
 const CartContextProvider = props => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedData = localStorage.getItem("cart");
+    return storedData ? JSON.parse(storedData) : [];
+  });
 
   const addCartItem = cartItem => {
     /// check if item already exists in the cart
@@ -20,6 +23,10 @@ const CartContextProvider = props => {
   const deleteCartItem = itemName => {
     setCart([...cart.filter(item => item.name !== itemName)]);
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <CartContext.Provider value={{ cart, addCartItem, deleteCartItem, setCart }}>{props.children}</CartContext.Provider>
