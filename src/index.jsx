@@ -4,8 +4,8 @@ import App from "./components/App";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { deepPurple, amber } from "@material-ui/core/colors";
-import AppStateContextProvider from "./contexts/AppStateContext";
-import CartContextProvider from "./contexts/CartContext";
+import { Provider } from "react-redux";
+import { store } from "./redux/redux.js";
 
 const theme = createMuiTheme({
   palette: {
@@ -22,11 +22,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <CartContextProvider>
-      <AppStateContextProvider>
-        <App />
-      </AppStateContextProvider>
-    </CartContextProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ThemeProvider>,
   document.getElementById("root")
 );

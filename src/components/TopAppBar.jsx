@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { AppBar, Toolbar, IconButton, Tooltip, Typography } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { AppStateContext } from "../contexts/AppStateContext";
+import { useActions } from "react-redux";
+import { toggleCartAction } from "../redux/redux";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -11,7 +13,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TopAppBar = props => {
-  const { appState, setAppState } = useContext(AppStateContext);
+  const toggleCart = useActions(() => toggleCartAction());
+
   const classes = useStyles();
 
   return (
@@ -21,7 +24,7 @@ const TopAppBar = props => {
           *Store Logo Here*
         </Typography>
         <Tooltip title="View Cart">
-          <IconButton onClick={() => setAppState({ ...appState, cartOpen: true })}>
+          <IconButton onClick={() => toggleCart()}>
             <ShoppingCartIcon />
           </IconButton>
         </Tooltip>

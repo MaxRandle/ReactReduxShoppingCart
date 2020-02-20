@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Typography, Grid, IconButton, Tooltip } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { CartContext } from "../contexts/CartContext";
+
+import { useActions } from "react-redux";
+import { deleteFromCartAction } from "../redux/redux";
 
 const ShoppingCart = props => {
   const { name, price, quantity } = props;
-  const { deleteCartItem } = useContext(CartContext);
+  const deleteFromCart = useActions(cartItemName => deleteFromCartAction(cartItemName));
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
@@ -55,7 +57,7 @@ const ShoppingCart = props => {
         <Grid container direction="column" justify="center" alignItems="stretch">
           <Grid item>
             <Tooltip title="Remove Item">
-              <IconButton onClick={() => deleteCartItem(name)}>
+              <IconButton onClick={() => deleteFromCart(name)}>
                 <DeleteForeverIcon color="secondary" />
               </IconButton>
             </Tooltip>
