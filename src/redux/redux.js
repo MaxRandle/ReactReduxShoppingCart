@@ -7,12 +7,13 @@ const initialState = {
 
 const reducer = (state, action) => {
   const { type, cartItem, cartItemName, ...others } = action;
+
   switch (type) {
     case "TOGGLE_CART":
       return { ...state, cartOpen: !state.cartOpen };
 
     case "ADD_TO_CART":
-      const filteredItems = state.filter(item => item.name === cartItem.name);
+      const filteredItems = state.cart.filter(item => item.name === cartItem.name);
       if (filteredItems.length === 0) {
         return { ...state, cart: [...state.cart, { ...cartItem, quantity: 1 }] };
       } else {

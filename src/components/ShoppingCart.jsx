@@ -1,18 +1,22 @@
 import React from "react";
 import { Dialog, DialogTitle, DialogContent, Divider, Typography, Grid } from "@material-ui/core";
-import { useSelector, useActions } from "react-redux";
+import { useSelector } from "react-redux";
+// import { useActions } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleCartAction } from "../redux/redux";
 import CartItem from "./CartItem";
 
 const ShoppingCart = () => {
   const cart = useSelector(state => state.cart);
   const cartOpen = useSelector(state => state.cartOpen);
-  const toggleCart = useActions(() => toggleCartAction());
+  // const toggleCart = useActions(() => toggleCartAction());
+  const dispatch = useDispatch();
 
   const total = cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
 
   return (
-    <Dialog open={cartOpen} onClose={() => toggleCart()}>
+    // <Dialog open={cartOpen} onClose={() => toggleCart()}>
+    <Dialog open={cartOpen} onClose={() => dispatch(toggleCartAction())}>
       <DialogTitle>Shopping Cart</DialogTitle>
       <Divider />
       <DialogContent>

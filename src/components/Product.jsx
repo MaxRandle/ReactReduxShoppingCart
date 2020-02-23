@@ -1,11 +1,14 @@
 import React from "react";
 import { Card, CardHeader, Divider, CardContent, CardActions, Button } from "@material-ui/core";
-import { useActions } from "react-redux";
+// import { useActions } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCartAction } from "../redux/redux";
 
 const Product = props => {
   const { name, price } = props;
-  const addToCart = useActions(cartItem => addToCartAction(cartItem));
+
+  // const addToCart = useActions(cartItem => addToCartAction(cartItem));
+  const dispatch = useDispatch();
 
   return (
     <Card>
@@ -14,7 +17,8 @@ const Product = props => {
       <CardContent>{`Price: $${(Math.round(price * 100) / 100).toFixed(2)}`}</CardContent>
       <Divider />
       <CardActions>
-        <Button variant="contained" color="primary" onClick={() => addToCart({ name, price })}>
+        {/* <Button variant="contained" color="primary" onClick={() => addToCart({ name, price })}> */}
+        <Button variant="contained" color="primary" onClick={() => dispatch(addToCartAction({ name, price }))}>
           Add to Cart
         </Button>
       </CardActions>
